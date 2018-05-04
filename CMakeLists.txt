@@ -26,6 +26,8 @@ endif ()
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   srrg_core
+  srrg_core_viewers
+  srrg_gl_helpers
 )
 
 ## System dependencies are found with CMake's conventions
@@ -34,6 +36,16 @@ find_package(catkin REQUIRED COMPONENTS
 # Find Eigen3
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
+
+# Find OpenGL
+find_package(OpenGL REQUIRED)
+include_directories(${OPENGL_INCLUDE})
+
+# Find QGLViewer
+find_package(QGLViewer REQUIRED)
+include_directories(${QGLVIEWER_INCLUDE_DIR})
+message(STATUS "SRRG_QT_INCLUDE_DIRS: ${SRRG_QT_INCLUDE_DIRS}")
+include_directories(${SRRG_QT_INCLUDE_DIRS})
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -123,8 +135,8 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS src
-  LIBRARIES icp_solver_library
-  CATKIN_DEPENDS srrg_core
+  LIBRARIES icp_solver_library icp_solver_viewer_library
+  CATKIN_DEPENDS srrg_core srrg_core_viewers srrg_gl_helpers
 #  DEPENDS system_lib
 )
 
